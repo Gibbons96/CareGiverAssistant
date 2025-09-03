@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    h1 {
+        color: #333;
+    }
+    textarea, input[type="text"], input[type="number"] {
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        margin-bottom: 1rem;
+    }
+    textarea {
+        height: 100px;
+        resize: vertical;
+    }
+    .button-row {
+    margin-top: 1rem;
+    display: flex;
+    gap: 10px;
+    align-items: center; /* vertically center all items */
+}
+
+button, .btn-danger {
+    height: 38px; /* same height */
+    line-height: 1; /* prevent extra vertical spacing */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none; /* for link */
+    color: white;
+    border: none;
+}
+
+button {
+    background-color: #007BFF;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+    .btn-success {
+        background-color: #28a745;
+    }
+    .form-section {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+    .field-label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 0.3rem;
+    }
+</style>
+
+<h1>Caregiver Request Summarizer</h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <label for="prompt" class="field-label">Transcript</label>
+    <textarea id="prompt" name="prompt" placeholder="Paste your transcript here...">{{ request.POST.prompt }}</textarea>
+
+    <div class="button-row">
+    <button type="submit">Summarize</button>
+    <a href="/client/clients/home/" class="btn-danger">Cancel</a>
+</div>
+</form>
+
+{% if summary and not summary.error %}
+    <div class="form-section">
+        <h2>Edit Summary</h2>
+        <form action="{% url 'employee_match' %}" method="post">
+            {% csrf_token %}
+
+            <label for="client_name" class="field-label">Client Name:</label>
+            <input type="text" id="client_name" name="client_name" value="{{ summary.client_name|default:'Any' }}">
+
+            <label for="client_age" class="field-label">Client Age:</label>
+            <input type="text" id="client_age" name="Client_age" value="{{ summary.Client_age|default:'Any' }}">
+
+            <label for="preferred_gender" class="field-label">Preferred Caregiver Gender:</label>
+            <input type="text" id="preferred_gender" name="Preferred_caregiver_gender" value="{{ summary.Preferred_caregiver_gender|default:'Any' }}">
+
+            <label for="age_min" class="field-label">Preferred Caregiver Age Min:</label>
+            <input type="text" id="age_min" name="Preferred_caregiver_age_min" value="{{ summary.Preferred_caregiver_age_min|default:'Any' }}">
+
+            <label for="age_max" class="field-label">Preferred Caregiver Age Max:</label>
+            <input type="text" id="age_max" name="Preferred_caregiver_age_max" value="{{ summary.Preferred_caregiver_age_max|default:'Any' }}">
+
+            <label for="care_location" class="field-label">Care Location:</label>
+            <input type="text" id="care_location" name="Care_location" value="{{ summary.Care_location|default:'Any' }}">
+
+            <label for="language_preference" class="field-label">Language Preference (comma separated):</label>
+            <input type="text" id="language_preference" name="Language_preference" value="{% if summary.Language_preference %}{% if summary.Language_preference|stringformat:'s' == summary.Language_preference %}{{ summary.Language_preference }}{% else %}{{ summary.Language_preference|join:',' }}{% endif %}{% else %}Any{% endif %}">
+
+            <label for="required_certs" class="field-label">Required Certifications (comma separated):</label>
+            <input type="text" id="required_certs" name="Required_certifications" value="{% if summary.Required_certifications %}{{ summary.Required_certifications|join:',' }}{% else %}Any{% endif %}">
+
+            <label for="required_health" class="field-label">Required Occupational Health (comma separated):</label>
+            <input type="text" id="required_health" name="Required_occupational_health" value="{% if summary.Required_occupational_health %}{{ summary.Required_occupational_health|join:',' }}{% else %}Any{% endif %}">
+
+            <label for="notes" class="field-label">Client Requirements / Notes (comma separated):</label>
+            <textarea id="notes" name="Notes">{% if summary.Notes %}{{ summary.Notes|join:',' }}{% else %}Any{% endif %}</textarea>
+
+            <button type="submit" class="btn btn-success">Find Employee</button>
+        </form>
+    </div>
+{% elif summary and summary.error %}
+    <p style="color:red;">{{ summary.error }}</p>
+{% endif %}
+
+{% endblock %}

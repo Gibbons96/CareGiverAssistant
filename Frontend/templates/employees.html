@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="get" class="mb-3 d-flex gap-2">
+  <input type="text" name="search" class="form-control" placeholder="Search by Name or PPS" value="{{ request.GET.search }}">
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<div class="table-responsive" style="max-height: 80vh; overflow-y: auto;">
+  <table class="table table-bordered table-striped table-sm align-middle text-center">
+    <thead class="table-dark sticky-top">
+      <!-- Group headers with colspan -->
+      <tr>
+        <th colspan="13">Personal Information</th>
+        <th colspan="3">Emergency Contact</th>
+        <th colspan="2">Bank</th>
+        <th colspan="4">Professional Qualification</th>
+        <th colspan="10">Certification</th>
+        <th colspan="3">Occupational Health</th>
+        <th>Submitted</th>
+        <th colspan="2">Modify</th>
+      </tr>
+      <!-- Actual column headers -->
+      <tr>
+        <th>Title</th>
+        <th>Forenames</th>
+        <th>Surname</th>
+        <th>DOB</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Eircode</th>
+        <th>PPS</th>
+        <th>Occupation</th>
+        <th>Language</th>
+        <th>EU Passport/GNIB</th>
+
+        <th>Emergency Name</th>
+        <th>Relationship</th>
+        <th>Emergency Phone</th>
+
+        <th>IBAN</th>
+        <th>BIC</th>
+
+        <th>Student Nurse</th>
+        <th>NMBI</th>
+        <th>FETAC L5</th>
+        <th>Social Care</th>
+
+        <th>CPR</th>
+        <th>Patient Moving</th>
+        <th>Elder Abuse</th>
+        <th>PPE</th>
+        <th>Infection Ctrl</th>
+        <th>Safeguarding</th>
+        <th>Hand Hygiene</th>
+        <th>Fire Safety</th>
+        <th>Children First</th>
+        <th>GDPR</th>
+
+        <th>Hep B</th>
+        <th>MMR</th>
+        <th>Varicella</th>
+
+        <th>Submitted</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for employee in all_employees %}
+      <tr>
+        <!-- Personal Info -->
+        <td>{{ employee.title }}</td>
+        <td>{{ employee.forenames }}</td>
+        <td>{{ employee.surname }}</td>
+        <td>{{ employee.date_of_birth|date:"Y-m-d" }}</td>
+        <td>{{ employee.gender }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.phone_mobile }}</td>
+        <td>{{ employee.address }}</td>
+        <td>{{ employee.eircode }}</td>
+        <td>{{ employee.pps_number }}</td>
+        <td>{{ employee.occupation }}</td>
+        <td>{{ employee.language }}</td>
+        <td>{{ employee.eu_passport_or_gnib|yesno:"✔,✘" }}</td>
+
+        <!-- Emergency Contact -->
+        <td>{{ employee.emergency_name }}</td>
+        <td>{{ employee.emergency_relationship }}</td>
+        <td>{{ employee.emergency_phone }}</td>
+
+        <!-- Bank -->
+        <td>{{ employee.iban }}</td>
+        <td>{{ employee.bic }}</td>
+
+        <!-- Qualifications -->
+        <td>{{ employee.student_nurse_id|yesno:"✔,✘" }}</td>
+        <td>{{ employee.nmbi_cert|yesno:"✔,✘" }}</td>
+        <td>{{ employee.fetac_level_5|yesno:"✔,✘" }}</td>
+        <td>{{ employee.social_care_cert|yesno:"✔,✘" }}</td>
+
+        <!-- Training -->
+        <td>{{ employee.cpr_cert|yesno:"✔,✘" }}</td>
+        <td>{{ employee.patient_moving|yesno:"✔,✘" }}</td>
+        <td>{{ employee.elder_abuse|yesno:"✔,✘" }}</td>
+        <td>{{ employee.ppe_training|yesno:"✔,✘" }}</td>
+        <td>{{ employee.infection_control|yesno:"✔,✘" }}</td>
+        <td>{{ employee.safeguarding_adults|yesno:"✔,✘" }}</td>
+        <td>{{ employee.hand_hygiene|yesno:"✔,✘" }}</td>
+        <td>{{ employee.fire_safety|yesno:"✔,✘" }}</td>
+        <td>{{ employee.children_first|yesno:"✔,✘" }}</td>
+        <td>{{ employee.gdpr|yesno:"✔,✘" }}</td>
+
+        <!-- Occupational Health -->
+        <td>{{ employee.hep_b|yesno:"✔,✘" }}</td>
+        <td>{{ employee.mmr_immunity|yesno:"✔,✘" }}</td>
+        <td>{{ employee.varicella_immunity|yesno:"✔,✘" }}</td>
+
+        <td>{{ employee.submitted_at|date:"Y-m-d H:i" }}</td>
+
+        <td>
+          <a href="{% url 'employee_update' employee.id %}"><button>Update</button></a>
+        </td>
+        <td>
+          <a href="{% url 'employee_delete' employee.id %}"><button>Delete</button></a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="37">No employees found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

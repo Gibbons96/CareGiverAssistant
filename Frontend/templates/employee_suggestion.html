@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Summary</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        thead tr.group-header th {
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <h2>Employee Summary</h2>
+
+    <button onclick="document.getElementById('employee-table').style.display='table';">
+        Load Employees
+    </button>
+
+    <table id="employee-table" style="display: none;">
+        <thead>
+            <!-- Group headers -->
+            <tr class="group-header">
+                {% for group, fields in field_groups.items %}
+                    <th colspan="{{ fields|length }}">{{ group }}</th>
+                {% endfor %}
+            </tr>
+            <!-- Column headers -->
+            <tr>
+                {% for group, display_fields in field_groups_display.items %}
+                    {% for header in display_fields %}
+                        <th>{{ header }}</th>
+                    {% endfor %}
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in employees %}
+                <tr>
+                    {% for value in row %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

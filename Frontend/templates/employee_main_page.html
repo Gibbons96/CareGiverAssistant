@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  body {
+    background: url("{% static 'assets/images/home2.jpg' %}") no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(255, 255, 255, 0.6); 
+    z-index: -1;
+  }
+
+  .content-wrapper {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card {
+    background-color: rgba(255, 255, 255, 0.85);
+  }
+</style>
+
+<div class="content-wrapper container">
+    <div class="card p-5 shadow text-center">
+        <h2 class="mb-4">Choose What to Manage</h2>
+        <a href="/employee/employees/view/" class="btn btn-primary m-2">View Employees</a>
+        <a href="/employee/employees/add/" class="btn btn-success m-2">Add Employee</a>
+    </div>
+</div>
+{% endblock %}

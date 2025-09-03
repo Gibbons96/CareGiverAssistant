@@ -1,0 +1,289 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  body {
+    background: url("{% static 'assets/images/employee.jpg' %}") no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8); 
+    z-index: -1;
+  }
+
+  .content-wrapper {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card {
+    background-color: rgba(255, 255, 255, 0.85);
+  }
+</style>
+
+<h1 class="mb-4 text-center">Add Employee</h1>
+
+<div class="container">
+  <div class="mx-auto" style="max-width: 800px;">
+    <form method="POST">
+      {% csrf_token %}
+
+      <!-- Personal Info -->
+      <div class="card mb-4">
+        <div class="card-header"><strong>Personal Info</strong></div>
+        <div class="card-body">
+          <label for="{{ employee_form.title.id_for_label }}">{{ employee_form.title.label }}</label>
+          {{ employee_form.title }}
+
+          <label for="{{ employee_form.forenames.id_for_label }}">{{ employee_form.forenames.label }}</label>
+          {{ employee_form.forenames }}
+
+          <label for="{{ employee_form.surname.id_for_label }}">{{ employee_form.surname.label }}</label>
+          {{ employee_form.surname }}
+
+          <label for="{{ employee_form.date_of_birth.id_for_label }}">{{ employee_form.date_of_birth.label }}</label>
+          {{ employee_form.date_of_birth }}
+
+          <label for="{{ employee_form.gender.id_for_label }}">{{ employee_form.gender.label }}</label>
+          {{ employee_form.gender }}
+
+          <label for="{{ employee_form.email.id_for_label }}">{{ employee_form.email.label }}</label>
+          {{ employee_form.email }}
+
+          <label for="{{ employee_form.phone_mobile.id_for_label }}">{{ employee_form.phone_mobile.label }}</label>
+          {{ employee_form.phone_mobile }}
+
+          <label for="{{ employee_form.address.id_for_label }}">{{ employee_form.address.label }}</label>
+          {{ employee_form.address }}
+
+          <label for="{{ employee_form.eircode.id_for_label }}">{{ employee_form.eircode.label }}</label>
+          {{ employee_form.eircode }}
+
+          <label for="{{ employee_form.pps_number.id_for_label }}">{{ employee_form.pps_number.label }}</label>
+          {{ employee_form.pps_number }}
+
+          <label for="{{ employee_form.occupation.id_for_label }}">{{ employee_form.occupation.label }}</label>
+          {{ employee_form.occupation }}
+
+          <label for="{{ employee_form.language.id_for_label }}">{{ employee_form.language.label }}</label>
+          {{ employee_form.language }}
+
+          <label for="{{ employee_form.eu_passport_or_gnib.id_for_label }}">{{ employee_form.eu_passport_or_gnib.label }}</label>
+          {{ employee_form.eu_passport_or_gnib }}
+        </div>
+      </div>
+
+      <!-- Emergency Contact -->
+      <div class="card mb-4">
+        <div class="card-header"><strong>Emergency Contact</strong></div>
+        <div class="card-body">
+          <label for="{{ employee_form.emergency_name.id_for_label }}">{{ employee_form.emergency_name.label }}</label>
+          {{ employee_form.emergency_name }}
+
+          <label for="{{ employee_form.emergency_relationship.id_for_label }}">{{ employee_form.emergency_relationship.label }}</label>
+          {{ employee_form.emergency_relationship }}
+
+          <label for="{{ employee_form.emergency_phone.id_for_label }}">{{ employee_form.emergency_phone.label }}</label>
+          {{ employee_form.emergency_phone }}
+        </div>
+      </div>
+
+      <!-- Bank Details (Optional) -->
+      <div class="card mb-4">
+        <div class="card-header"><strong>Bank Details (Optional)</strong></div>
+        <div class="card-body">
+          <label for="{{ employee_form.iban.id_for_label }}">{{ employee_form.iban.label }}</label>
+          {{ employee_form.iban }}
+
+          <label for="{{ employee_form.bic.id_for_label }}">{{ employee_form.bic.label }}</label>
+          {{ employee_form.bic }}
+        </div>
+      </div>
+
+      <!-- Professional Qualifications / Certifications (Checkboxes) -->
+      <div class="card mb-4">
+        <div class="card-header"><strong>Professional Qualifications / Certifications</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-check">
+                {{ employee_form.student_nurse_id }}
+                <label for="{{ employee_form.student_nurse_id.id_for_label }}">
+                  {{ employee_form.student_nurse_id.label }}
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-check">
+                {{ employee_form.nmbi_cert }}
+                <label for="{{ employee_form.nmbi_cert.id_for_label }}">
+                  {{ employee_form.nmbi_cert.label }}
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-check">
+                {{ employee_form.fetac_level_5 }}
+                <label for="{{ employee_form.fetac_level_5.id_for_label }}">
+                  {{ employee_form.fetac_level_5.label }}
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-check">
+                {{ employee_form.social_care_cert }}
+                <label for="{{ employee_form.social_care_cert.id_for_label }}">
+                  {{ employee_form.social_care_cert.label }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- General Training Certifications (Checkboxes) -->
+      <div class="card mb-4">
+        <div class="card-header"><strong>General Training Certifications</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-check">
+                {{ employee_form.cpr_cert }}
+                <label for="{{ employee_form.cpr_cert.id_for_label }}">
+                  {{ employee_form.cpr_cert.label }}
+                </label>
+              </div>
+              <div class="form-check">
+                {{ employee_form.patient_moving }}
+                <label for="{{ employee_form.patient_moving.id_for_label }}">
+                  {{ employee_form.patient_moving.label }}
+                </label>
+              </div>
+              <div class="form-check">
+                {{ employee_form.elder_abuse }}
+                <label for="{{ employee_form.elder_abuse.id_for_label }}">
+                  {{ employee_form.elder_abuse.label }}
+                </label>
+              </div>
+              <div class="form-check">
+                {{ employee_form.ppe_training }}
+                <label for="{{ employee_form.ppe_training.id_for_label }}">
+                  {{ employee_form.ppe_training.label }}
+                </label>
+              </div>
+              <div class="form-check">
+                {{ employee_form.infection_control }}
+                <label for="{{ employee_form.infection_control.id_for_label }}">
+                  {{ employee_form.infection_control.label }}
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-check">
+                {{ employee_form.safeguarding_adults }}
+                <label for="{{ employee_form.safeguarding_adults.id_for_label }}">
+                  {{ employee_form.safeguarding_adults.label }}
+                </label>
+              </div>
+              <div class="form-check">
+                {{ employee_form.hand_hygiene }}
+                <label for="{{ employee_form.hand_hygiene.id_for_label }}">
+                  {{ employee_form.hand_hygiene.label }}
+                </label>
+              </div>
+              <div class="form-check">
+                {{ employee_form.fire_safety }}
+                <label for="{{ employee_form.fire_safety.id_for_label }}">
+                  {{ employee_form.fire_safety.label }}
+                </label>
+              </div>
+              <div class="form-check">
+                {{ employee_form.children_first }}
+                <label for="{{ employee_form.children_first.id_for_label }}">
+                  {{ employee_form.children_first.label }}
+                </label>
+              </div>
+              <div class="form-check">
+                {{ employee_form.gdpr }}
+                <label for="{{ employee_form.gdpr.id_for_label }}">
+                  {{ employee_form.gdpr.label }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Occupational Health (Checkboxes) -->
+      <div class="card mb-4">
+        <div class="card-header"><strong>Occupational Health</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-check">
+                {{ employee_form.hep_b }}
+                <label for="{{ employee_form.hep_b.id_for_label }}">
+                  {{ employee_form.hep_b.label }}
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-check">
+                {{ employee_form.mmr_immunity }}
+                <label for="{{ employee_form.mmr_immunity.id_for_label }}">
+                  {{ employee_form.mmr_immunity.label }}
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-check">
+                {{ employee_form.varicella_immunity }}
+                <label for="{{ employee_form.varicella_immunity.id_for_label }}">
+                  {{ employee_form.varicella_immunity.label }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit and Cancel Buttons -->
+      <div class="d-flex justify-content-center gap-3 mb-5" style="padding-bottom: 80px;">
+        <input type="submit" value="Add Employee" class="btn btn-primary">
+        <a href="/employee/employees/home/" class="btn btn-danger">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Display popup messages if any -->
+{% if messages %}
+  {% for message in messages %}
+    <div id="popup-message" data-message="{{ message }}"></div>
+  {% endfor %}
+{% endif %}
+
+<!-- JavaScript for popup -->
+<script>
+  const popup = document.getElementById("popup-message");
+  if (popup) {
+    alert(popup.dataset.message);
+  }
+</script>
+
+<!-- Prevent form resubmission on refresh -->
+<script>
+  if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+  }
+</script>
+
+{% endblock %}

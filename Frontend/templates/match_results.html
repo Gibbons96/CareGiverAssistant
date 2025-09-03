@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-4">
+
+  <h2 class="mb-4">Employee Matches for {{ client_name }}</h2>
+
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">Client Preferences</h5>
+      <div class="row">
+        <div class="col-md-6">
+          <p><strong>Client Age:</strong> {{ client_age }}</p>
+          <p><strong>Preferred Gender:</strong> {{ preferred_gender }}</p>
+          <p><strong>Preferred Caregiver Age Min:</strong> {{ preferred_age_min }}</p>
+          <p><strong>Preferred Caregiver Age Max:</strong> {{ preferred_age_max }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Care Location:</strong> {{ care_location }}</p>
+          <p><strong>Language Preference:</strong> {{ language_preference }}</p>
+          <p><strong>Certifications:</strong> {{ required_certifications|join:", " }}</p>
+          <p><strong>Occupational Health:</strong> {{ required_occupational_health|join:", " }}</p>
+        </div>
+      </div>
+      
+      <div class="mt-3">
+        <strong>Additional Notes:</strong>
+        <ul class="list-group list-group-flush mt-2">
+          {% for note in notes %}
+            <li class="list-group-item p-1">{{ note }}</li>
+          {% empty %}
+            <li class="list-group-item p-1">None</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="mb-3">Top Caregiver Matches for {{ client_name }}</h3>
+
+  {% if gpt_matches %}
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <pre class="mb-0" style="white-space: pre-wrap; font-family: monospace;">{{ gpt_matches }}</pre>
+      </div>
+    </div>
+  {% else %}
+    <p>No matches found.</p>
+  {% endif %}
+
+  <div class="text-center mb-4">
+    <button type="button" class="btn btn-secondary" onclick="window.history.back();">← Back to Summary</button>
+  </div>
+
+</div>
+{% endblock %}
