@@ -177,7 +177,7 @@ from django.shortcuts import render
 from Employee.models import EmployeeApplication
 import openai
 
-client = openai.OpenAI(api_key="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")
+client = openai.OpenAI(api_key="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")
 
 
 def calculate_age(dob):
