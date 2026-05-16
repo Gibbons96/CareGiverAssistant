@@ -1,8 +1,20 @@
 from django.db import models
 
 class EmployeeApplication(models.Model):
-    GENDER_CHOICES = [('M', 'Male'), ('F', 'Female')]
-    TITLE_CHOICES = [('Mr', 'Mr'), ('Mrs', 'Mrs'), ('Miss', 'Miss'), ('Ms', 'Ms')]
+    GENDER_CHOICES = [
+    ('M', 'Male'),
+    ('F', 'Female'),
+    ('O', 'Other'),
+]
+
+TITLE_CHOICES = [
+    ('Mr', 'Mr'),
+    ('Mrs', 'Mrs'),
+    ('Miss', 'Miss'),
+    ('Ms', 'Ms'),
+    ('Dr', 'Dr'),
+    ('Prof', 'Prof'),
+]
 
     # Personal Info
     title = models.CharField(max_length=10, choices=TITLE_CHOICES)
