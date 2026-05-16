@@ -11,22 +11,7 @@ def homepage(request):
 def EmployeeHomePage(request):
     return render(request,'employee_main_page.html')
 
-'''
-def EmployeeAdd(request):
 
-    context={
-        'employee_form':EmployeeApplication_Form()
-    }
-
-    if request.method=='POST':
-        employee_form=EmployeeApplication_Form(request.POST)
-        if employee_form.is_valid():
-            employee_form.save()
-            
-        
-    return render(request,'add_employees.html',context)
-
-'''
 def EmployeeAdd(request):
     if request.method == 'POST':
         employee_form = EmployeeApplication_Form(request.POST)
@@ -49,14 +34,7 @@ def EmployeeAdd(request):
     return render(request, 'add_employees.html', context)
 
 
-'''
-def EmployeesView(request):
-    context={
-        "all_employees": EmployeeApplication.objects.all()
-    }
 
-    return render(request,'employees.html',context)
-'''
 
 def EmployeesView(request):
     search_query = request.GET.get('search', '').strip()
