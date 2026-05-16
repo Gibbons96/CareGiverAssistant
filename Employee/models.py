@@ -17,19 +17,31 @@ TITLE_CHOICES = [
 ]
 
     # Personal Info
+
     title = models.CharField(max_length=10, choices=TITLE_CHOICES)
     forenames = models.CharField(max_length=100)
     surname = models.CharField(max_length=100)
     date_of_birth = models.DateField()
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    email = models.EmailField()
+    
+    email = models.EmailField(unique=True)
     phone_mobile = models.CharField(max_length=20)
+    
     address = models.TextField()
     eircode = models.CharField(max_length=10)
-    pps_number = models.CharField(max_length=20)
+    
+    pps_number = models.CharField(max_length=20, unique=True)
+    
     occupation = models.CharField(max_length=100)
-    language = models.CharField(max_length=100, null=True)
+    
+    language = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True
+    )
+    
     eu_passport_or_gnib = models.BooleanField(default=False)
+
 
     # Emergency Contact
     emergency_name = models.CharField(max_length=100)
