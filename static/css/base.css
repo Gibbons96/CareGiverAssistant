@@ -1,50 +1,103 @@
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #F4F6F7;
-    color: #2D3436;
-  }
 
-  body, html {
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #F4F6F7, #EAF2F8);
+  color: #2D3436;
+}
+
+body,
+html {
   min-height: 100vh;
   position: relative;
-  padding-bottom: 60px; /* footer height */
+  padding-bottom: 70px; /* footer height */
+  scroll-behavior: smooth;
 }
-  
+
+
 .navbar {
   width: 100%;
   overflow-x: auto;
+  background: linear-gradient(90deg, #0F2027, #203A43, #2C5364);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
-  
-  .navbar .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .navbar .nav-links a {
-    margin-left: 1.5rem;
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  
-  .navbar .nav-links a:hover {
-    color: #1ABC9C;
-  }
-  
-  /* Content */
-  .content {
-    padding: 2rem;
-  }
-  
-  /* Footer */
-  .footer {
-    background-color: #000000;
-    color: white;
-    text-align: center;
-    padding: 1rem 2rem;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-  }
-  
+
+
+.navbar .logo {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+/* Navigation Links */
+.navbar .nav-links a {
+  margin-left: 1.5rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.navbar .nav-links a:hover {
+  color: #1ABC9C;
+}
+
+
+.navbar .nav-links a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background-color: #1ABC9C;
+  transition: width 0.3s ease;
+}
+
+.navbar .nav-links a:hover::after {
+  width: 100%;
+}
+
+
+.content {
+  padding: 3rem 2rem;
+  line-height: 1.8;
+}
+
+
+.content section {
+  background: white;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.content section:hover {
+  transform: translateY(-4px);
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(90deg, #000000, #1f1f1f);
+  color: white;
+  text-align: center;
+  padding: 1rem 2rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.2);
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
